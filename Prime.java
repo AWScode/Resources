@@ -11,7 +11,17 @@ import java.util.*;
 public class Prime{
 
   public static void printPrimeFactors(int num) {
-    System.out.println("");
+    if (num == 2) {
+      System.out.println(num);
+    }
+    for (int i = 2; i <= num; i++) {
+      if (num%i == 0) {
+        System.out.println(i);
+        printPrimeFactors(num/i);
+        //num = num/i;
+        break;
+      }
+    }
   }
 
   public static boolean checkPrime(int check) {
@@ -51,10 +61,9 @@ public class Prime{
     //take integer input from user and create a variable with it.
     int baseNum = userIn.nextInt();
     //pass baseNum to the nextPrime methods
-    int nPrime = nextPrime(baseNum);
+    printPrimeFactors(baseNum);
 
 
-    System.out.println(nPrime);
 
   }
 }

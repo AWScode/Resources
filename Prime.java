@@ -24,10 +24,10 @@ public class Prime{
     }
   }
 
-  public static long mersennePrime(int power) {
-    long finalM = 0;
+  public static double mersennePrime(int power) {
+    double finalM = 0;
     for (int i = 1; i < power; i++) {
-      long mNum = (2^i) - 1;
+      double mNum = Math.pow(2,i) - 1;
       if (checkPrime(mNum)) {
         finalM = mNum;
       }
@@ -36,7 +36,7 @@ public class Prime{
     return finalM;
   }
 
-  public static boolean checkPrime(long check) {
+  public static boolean checkPrime(double check) {
     boolean isPrime = true;
     for (int i = 2; i < check; i++) {
       // '%' is the mod operator. It tells you what the remainder
@@ -73,7 +73,7 @@ public class Prime{
     //take integer input from user and create a variable with it.
     int baseNum = userIn.nextInt();
     //pass baseNum to the nextPrime methods
-    long result = mersennePrime(baseNum);
+    double result = mersennePrime(baseNum);
     System.out.println(result);
 
 

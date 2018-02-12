@@ -6,9 +6,9 @@ Pound.java which creates a bunch of dogs. */
 
 public class Dog {
 
-  private static String name;
-  private static int age;
-  private static String owner;
+  private String name;
+  private int age;
+  private String owner;
 
   public Dog(String n, int a, String o) {
     this.name = n;
@@ -21,26 +21,26 @@ public class Dog {
   }
 
   public String getName() {
-    return this.name;
+    return name;
   }
 
-  public static int getAge() {
+  public int getAge() {
     return age;
   }
 
-  public static String getOwner() {
+  public String getOwner() {
     return owner;
   }
 
-  public static void setName(String n) {
+  public void setName(String n) {
     name = n;
   }
 
-  public static void setAge(int a) {
+  public void setAge(int a) {
     age = a;
   }
 
-  public static void setOwner(String o) {
+  public void setOwner(String o) {
     owner = o;
   }
 

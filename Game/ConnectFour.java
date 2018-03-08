@@ -24,31 +24,31 @@ public class ConnectFour {
   public ConnectFour() {
     //Constructor Method here
     this.column1 = new String[6];
-    this.column1[0] = "0";
+    this.column1[0] = "1";
     this.column1[1] = "0";
-    this.column1[2] = "0";
-    this.column1[3] = "0";
+    this.column1[2] = "1";
+    this.column1[3] = "1";
     this.column1[4] = "0";
     this.column1[5] = "0";
 
     this.column2 = new String[6];
     this.column2[0] = "0";
     this.column2[1] = "0";
-    this.column2[2] = "0";
+    this.column2[2] = "1";
     this.column2[3] = "0";
-    this.column2[4] = "0";
+    this.column2[4] = "1";
     this.column2[5] = "0";
 
     this.column3 = new String[6];
-    this.column3[0] = "0";
+    this.column3[0] = "1";
     this.column3[1] = "0";
     this.column3[2] = "0";
-    this.column3[3] = "0";
+    this.column3[3] = "1";
     this.column3[4] = "0";
-    this.column3[5] = "0";
+    this.column3[5] = "1";
 
     this.column4 = new String[6];
-    this.column4[0] = "0";
+    this.column4[0] = "1";
     this.column4[1] = "0";
     this.column4[2] = "0";
     this.column4[3] = "0";
@@ -56,7 +56,7 @@ public class ConnectFour {
     this.column4[5] = "0";
 
     this.column5 = new String[6];
-    this.column5[0] = "0";
+    this.column5[0] = "1";
     this.column5[1] = "0";
     this.column5[2] = "0";
     this.column5[3] = "0";
@@ -64,7 +64,7 @@ public class ConnectFour {
     this.column5[5] = "0";
 
     this.column6 = new String[6];
-    this.column6[0] = "0";
+    this.column6[0] = "1";
     this.column6[1] = "0";
     this.column6[2] = "0";
     this.column6[3] = "0";
@@ -107,7 +107,7 @@ public class ConnectFour {
     }
   }
 
-  public void addPiece(int columnInd) {
+  public void addPiece(int columnInd, String player) {
       //Place a piece in the column that is passed in.
       //Find the lowest possible empty space and fill.
       //The largest row number that is empty.
@@ -120,5 +120,30 @@ public class ConnectFour {
   public static void main(String[] args) {
     ConnectFour newGame = new ConnectFour();
     newGame.displayBoard();
+    newGame.checkFour();
+    String player = "2";
+    while (true) {
+      if (player.equals("1")) {
+        player = "2";
+      }
+      else {
+        player = "1";
+      }
+      System.out.println("Player " + player + "s turn.");
+
+      Scanner newSc = new Scanner(System.in);
+      newGame.displayBoard();
+      System.out.println("Where do you want to play?");
+      /*Int col = newSc.nextInt();
+      newGame.addPiece(col, player);*/
+    }
+
+    //newGame.addPiece(col, player);
+
+
+
+
+
+
   }
 }

@@ -212,11 +212,11 @@ public class ConnectFour {
             //up-right
             if (j-k > 0) {
               if (i + k < 7) {
-                if (board[i-k][j+k].equals("0")) {
+                if (board[i+k][j-k].equals("0")) {
                   count = 0;
                   break;
                 }
-                else if (board[i-k][j+k].equals("1")) {
+                else if (board[i+k][j-k].equals("1")) {
                   count = 0;
                   break;
                 }

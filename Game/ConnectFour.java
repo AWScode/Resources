@@ -113,8 +113,190 @@ public class ConnectFour {
       //The largest row number that is empty.
   }
 
-  public void checkFour() {
-    //
+  public Boolean checkFour() {
+    int count = 0;
+
+    for (int i = 0; i < 7; i++) {
+      for (int j = 0; j < 6; j++) {
+        if (board[i][j].equals("1")) {
+          for (int k = 1; k < 4; k++) {
+            //up-right
+            if (j-k > 0) {
+              if (i + k < 7) {
+                if (board[i+k][j-k].equals("0")) {
+                  count = 0;
+                  break;
+                }
+                else if (board[i+k][j-k].equals("2")) {
+                  count = 0;
+                  break;
+                }
+                else {
+                  count++;
+                  if (count == 4)
+                  gameOver = true;
+                  break;
+                }
+              }
+            }
+          }
+
+          for (int k = 1; k < 4; k++) {
+            //right
+            if (i + k < 7) {
+              if (board[i+k][j].equals("0")) {
+                count = 0;
+                break;
+              }
+              else if (board[i+k][j].equals("2")) {
+                count = 0;
+                break;
+              }
+              else {
+                count++;
+                if (count == 4)
+                gameOver = true;
+                break;
+              }
+
+            }
+          }
+
+
+          for (int k = 1; k < 4; k++) {
+            //bottom-right
+            if (j+k < 6) {
+              if (i + k < 7) {
+                if (board[i+k][j+k].equals("0")) {
+                  count = 0;
+                  break;
+                }
+                else if (board[i+k][j+k].equals("2")) {
+                  count = 0;
+                  break;
+                }
+                else {
+                  count++;
+                  if (count == 4)
+                  gameOver = true;
+                  break;
+                }
+              }
+            }
+          }
+
+          for (int k = 1; k < 4; k++) {
+            //bottom
+            if (j+k < 6) {
+              if (board[i][j+k].equals("0")) {
+                count = 0;
+                break;
+              }
+              else if (board[i][j+k].equals("2")) {
+                count = 0;
+                break;
+              }
+              else {
+                count++;
+                if (count == 4)
+                gameOver = true;
+                break;
+              }
+            }
+          }
+        }
+
+
+        if (board[i][j].equals("2")) {
+          for (int k = 1; k < 4; k++) {
+            //up-right
+            if (j-k > 0) {
+              if (i + k < 7) {
+                if (board[i-k][j+k].equals("0")) {
+                  count = 0;
+                  break;
+                }
+                else if (board[i-k][j+k].equals("1")) {
+                  count = 0;
+                  break;
+                }
+                else {
+                  count++;
+                  if (count == 4)
+                  gameOver = true;
+                  break;
+                }
+              }
+            }
+          }
+
+          for (int k = 1; k < 4; k++) {
+            //right
+            if (i + k < 7) {
+              if (board[i+k][j].equals("0")) {
+                count = 0;
+                break;
+              }
+              else if (board[i+k][j].equals("1")) {
+                count = 0;
+                break;
+              }
+              else {
+                count++;
+                if (count == 4)
+                gameOver = true;
+                break;
+              }
+
+            }
+          }
+
+
+          for (int k = 1; k < 4; k++) {
+            //bottom-right
+            if (j+k < 6) {
+              if (i + k < 7) {
+                if (board[i+k][j+k].equals("0")) {
+                  count = 0;
+                  break;
+                }
+                else if (board[i+k][j+k].equals("1")) {
+                  count = 0;
+                  break;
+                }
+                else {
+                  count++;
+                  if (count == 4)
+                  gameOver = true;
+                  break;
+                }
+              }
+            }
+          }
+
+          for (int k = 1; k < 4; k++) {
+            //bottom
+            if (j+k < 6) {
+              if (board[i][j+k].equals("0")) {
+                count = 0;
+                break;
+              }
+              else if (board[i][j+k].equals("1")) {
+                count = 0;
+                break;
+              }
+              else {
+                count++;
+                if (count == 4)
+                gameOver = true;
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+    return gameOver;
   }
 
   public static void main(String[] args) {
@@ -132,10 +314,15 @@ public class ConnectFour {
       System.out.println("Player " + player + "s turn.");
 
       Scanner newSc = new Scanner(System.in);
-      newGame.displayBoard();
       System.out.println("Where do you want to play?");
-      /*Int col = newSc.nextInt();
-      newGame.addPiece(col, player);*/
+      int col = newSc.nextInt();
+      newGame.addPiece(col, player);
+      newGame.displayBoard();
+      if (newGame.checkFour()) {
+        System.out.println("Game Over!");
+        break;
+      }
+
     }
 
     //newGame.addPiece(col, player);

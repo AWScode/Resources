@@ -118,24 +118,29 @@ public class ConnectFour {
 
     for (int i = 0; i < 7; i++) {
       for (int j = 0; j < 6; j++) {
+
+
         if (board[i][j].equals("1")) {
+          System.out.println("Found 1");
+          count = 1;
           for (int k = 1; k < 4; k++) {
             //up-right
-            if (j-k > 0) {
+            if (j-k > -1) {
               if (i + k < 7) {
                 if (board[i+k][j-k].equals("0")) {
-                  count = 0;
+                  count = 1;
                   break;
                 }
                 else if (board[i+k][j-k].equals("2")) {
-                  count = 0;
+                  count = 1;
                   break;
                 }
                 else {
                   count++;
-                  if (count == 4)
-                  gameOver = true;
-                  break;
+                  if (count == 4){
+                    gameOver = true;
+                    break;
+                  }
                 }
               }
             }
@@ -145,18 +150,20 @@ public class ConnectFour {
             //right
             if (i + k < 7) {
               if (board[i+k][j].equals("0")) {
-                count = 0;
+                count = 1;
                 break;
               }
               else if (board[i+k][j].equals("2")) {
-                count = 0;
+                count = 1;
                 break;
               }
               else {
                 count++;
-                if (count == 4)
-                gameOver = true;
-                break;
+                System.out.println(count);
+                if (count == 4){
+                  gameOver = true;
+                  break;
+                }
               }
 
             }
@@ -168,18 +175,19 @@ public class ConnectFour {
             if (j+k < 6) {
               if (i + k < 7) {
                 if (board[i+k][j+k].equals("0")) {
-                  count = 0;
+                  count = 1;
                   break;
                 }
                 else if (board[i+k][j+k].equals("2")) {
-                  count = 0;
+                  count = 1;
                   break;
                 }
                 else {
                   count++;
-                  if (count == 4)
-                  gameOver = true;
-                  break;
+                  if (count == 4){
+                    gameOver = true;
+                    break;
+                  }
                 }
               }
             }
@@ -189,18 +197,19 @@ public class ConnectFour {
             //bottom
             if (j+k < 6) {
               if (board[i][j+k].equals("0")) {
-                count = 0;
+                count = 1;
                 break;
               }
               else if (board[i][j+k].equals("2")) {
-                count = 0;
+                count = 1;
                 break;
               }
               else {
                 count++;
-                if (count == 4)
-                gameOver = true;
-                break;
+                if (count == 4){
+                  gameOver = true;
+                  break;
+                }
               }
             }
           }
@@ -208,23 +217,25 @@ public class ConnectFour {
 
 
         if (board[i][j].equals("2")) {
+          count = 1;
           for (int k = 1; k < 4; k++) {
             //up-right
-            if (j-k > 0) {
+            if (j-k > -1) {
               if (i + k < 7) {
                 if (board[i+k][j-k].equals("0")) {
-                  count = 0;
+                  count = 1;
                   break;
                 }
                 else if (board[i+k][j-k].equals("1")) {
-                  count = 0;
+                  count = 1;
                   break;
                 }
                 else {
                   count++;
-                  if (count == 4)
-                  gameOver = true;
-                  break;
+                  if (count == 4){
+                    gameOver = true;
+                    break;
+                  }
                 }
               }
             }
@@ -234,18 +245,19 @@ public class ConnectFour {
             //right
             if (i + k < 7) {
               if (board[i+k][j].equals("0")) {
-                count = 0;
+                count = 1;
                 break;
               }
               else if (board[i+k][j].equals("1")) {
-                count = 0;
+                count = 1;
                 break;
               }
               else {
                 count++;
-                if (count == 4)
-                gameOver = true;
-                break;
+                if (count == 4){
+                  gameOver = true;
+                  break;
+                }
               }
 
             }
@@ -257,18 +269,19 @@ public class ConnectFour {
             if (j+k < 6) {
               if (i + k < 7) {
                 if (board[i+k][j+k].equals("0")) {
-                  count = 0;
+                  count = 1;
                   break;
                 }
                 else if (board[i+k][j+k].equals("1")) {
-                  count = 0;
+                  count = 1;
                   break;
                 }
                 else {
                   count++;
-                  if (count == 4)
-                  gameOver = true;
-                  break;
+                  if (count == 4){
+                    gameOver = true;
+                    break;
+                  }
                 }
               }
             }
@@ -278,23 +291,27 @@ public class ConnectFour {
             //bottom
             if (j+k < 6) {
               if (board[i][j+k].equals("0")) {
-                count = 0;
+                count = 1;
                 break;
               }
               else if (board[i][j+k].equals("1")) {
-                count = 0;
+                count = 1;
                 break;
               }
               else {
                 count++;
-                if (count == 4)
-                gameOver = true;
-                break;
+                if (count == 4){
+                  gameOver = true;
+                  break;
+                }
               }
             }
           }
         }
       }
+    }
+    if (gameOver) {
+      System.out.println("game Over");
     }
     return gameOver;
   }
@@ -318,7 +335,8 @@ public class ConnectFour {
       int col = newSc.nextInt();
       newGame.addPiece(col, player);
       newGame.displayBoard();
-      if (newGame.checkFour()) {
+      Boolean end = newGame.checkFour();
+      if (end) {
         System.out.println("Game Over!");
         break;
       }

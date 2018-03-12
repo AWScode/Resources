@@ -24,31 +24,31 @@ public class ConnectFour {
   public ConnectFour() {
     //Constructor Method here
     this.column1 = new String[6];
-    this.column1[0] = "1";
+    this.column1[0] = "0";
     this.column1[1] = "0";
-    this.column1[2] = "1";
-    this.column1[3] = "1";
+    this.column1[2] = "0";
+    this.column1[3] = "0";
     this.column1[4] = "0";
     this.column1[5] = "0";
 
     this.column2 = new String[6];
     this.column2[0] = "0";
     this.column2[1] = "0";
-    this.column2[2] = "1";
+    this.column2[2] = "0";
     this.column2[3] = "0";
-    this.column2[4] = "1";
+    this.column2[4] = "0";
     this.column2[5] = "0";
 
     this.column3 = new String[6];
-    this.column3[0] = "1";
+    this.column3[0] = "0";
     this.column3[1] = "0";
     this.column3[2] = "0";
-    this.column3[3] = "1";
+    this.column3[3] = "0";
     this.column3[4] = "0";
-    this.column3[5] = "1";
+    this.column3[5] = "0";
 
     this.column4 = new String[6];
-    this.column4[0] = "1";
+    this.column4[0] = "0";
     this.column4[1] = "0";
     this.column4[2] = "0";
     this.column4[3] = "0";
@@ -56,7 +56,7 @@ public class ConnectFour {
     this.column4[5] = "0";
 
     this.column5 = new String[6];
-    this.column5[0] = "1";
+    this.column5[0] = "0";
     this.column5[1] = "0";
     this.column5[2] = "0";
     this.column5[3] = "0";
@@ -64,7 +64,7 @@ public class ConnectFour {
     this.column5[5] = "0";
 
     this.column6 = new String[6];
-    this.column6[0] = "1";
+    this.column6[0] = "0";
     this.column6[1] = "0";
     this.column6[2] = "0";
     this.column6[3] = "0";
@@ -107,7 +107,18 @@ public class ConnectFour {
     }
   }
 
-  public void addPiece(int columnInd, String player) {
+  public Boolean addPiece(int columnInd, String player) {
+    columnInd = columnInd - 1;
+    for (int i = 5; i > -1; i--) {
+      if (board[columnInd][i].equals("0")) {
+        board[columnInd][i] = player;
+        break;
+      }
+      if (i == 0) {
+        return false;
+      }
+    }
+    return true;
       //Place a piece in the column that is passed in.
       //Find the lowest possible empty space and fill.
       //The largest row number that is empty.
@@ -121,7 +132,6 @@ public class ConnectFour {
 
 
         if (board[i][j].equals("1")) {
-          System.out.println("Found 1");
           count = 1;
           for (int k = 1; k < 4; k++) {
             //up-right
@@ -145,7 +155,7 @@ public class ConnectFour {
               }
             }
           }
-
+          count = 1;
           for (int k = 1; k < 4; k++) {
             //right
             if (i + k < 7) {
@@ -159,7 +169,6 @@ public class ConnectFour {
               }
               else {
                 count++;
-                System.out.println(count);
                 if (count == 4){
                   gameOver = true;
                   break;
@@ -169,7 +178,7 @@ public class ConnectFour {
             }
           }
 
-
+          count = 1;
           for (int k = 1; k < 4; k++) {
             //bottom-right
             if (j+k < 6) {
@@ -192,7 +201,7 @@ public class ConnectFour {
               }
             }
           }
-
+          count = 1;
           for (int k = 1; k < 4; k++) {
             //bottom
             if (j+k < 6) {
@@ -240,7 +249,7 @@ public class ConnectFour {
               }
             }
           }
-
+          count = 1;
           for (int k = 1; k < 4; k++) {
             //right
             if (i + k < 7) {
@@ -263,7 +272,7 @@ public class ConnectFour {
             }
           }
 
-
+          count = 1;
           for (int k = 1; k < 4; k++) {
             //bottom-right
             if (j+k < 6) {
@@ -286,7 +295,7 @@ public class ConnectFour {
               }
             }
           }
-
+          count = 1;
           for (int k = 1; k < 4; k++) {
             //bottom
             if (j+k < 6) {
@@ -310,9 +319,6 @@ public class ConnectFour {
         }
       }
     }
-    if (gameOver) {
-      System.out.println("game Over");
-    }
     return gameOver;
   }
 
@@ -321,6 +327,8 @@ public class ConnectFour {
     newGame.displayBoard();
     newGame.checkFour();
     String player = "2";
+    int turnCount = 1;
+
     while (true) {
       if (player.equals("1")) {
         player = "2";
@@ -330,14 +338,28 @@ public class ConnectFour {
       }
       System.out.println("Player " + player + "s turn.");
 
-      Scanner newSc = new Scanner(System.in);
-      System.out.println("Where do you want to play?");
-      int col = newSc.nextInt();
-      newGame.addPiece(col, player);
+      Boolean added = false;
+      while (!added) {
+        Scanner newSc = new Scanner(System.in);
+        System.out.println("Where do you want to play? (choose a column number 1-7)");
+        int col = newSc.nextInt();
+        added = newGame.addPiece(col, player);
+        if (!added) {
+          System.out.println("Column full, please choose another play.");
+        }
+      }
+      System.out.println(" ");
+      System.out.println(" === Turn " + turnCount + " === ");
+      System.out.println(" ");
       newGame.displayBoard();
+      System.out.println(" ");
       Boolean end = newGame.checkFour();
-      if (end) {
-        System.out.println("Game Over!");
+
+      turnCount++;
+
+      if (end == true) {
+        System.out.println("Game Over! ");
+        System.out.println("Player " + player + " wins!");
         break;
       }
 

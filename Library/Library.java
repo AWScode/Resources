@@ -39,12 +39,13 @@ public class Library {
 
   }
 
+  //Sort with Insertion
   public void alphaSort(){
 
   }
-
+  //Sort with Selection
   public void wLengthSort(){
-    
+
   }
 
   public int getWordCount(String w){

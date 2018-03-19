@@ -95,14 +95,26 @@ public class Library {
 
   public void readNewBook(String filename) {
     File newBook = new File(filename);
-    FileReader fr = new FileReader(newBook);
+    try {
+      Scanner toRead = new Scanner(newBook);
+      while (toRead.hasNext()) {
+      String toAdd = toRead.next();
+      toAdd = toAdd.replaceAll("[-+.^:,!(){}\'\"]", "");
+      words.add(toAdd);
+      }
+    }
+    catch (FileNotFoundException e) {
+      System.out.println("File not found.");
+    }
+
+
   }
 
   public static void main(String[] args) {
 
     Library myLib = new Library();
 
-    myLib.readNewBook("PrideandPrejudice.txt");
+    myLib.readNewBook("HeartOfDarkness.txt");
 
     System.out.println("\nWelcome to the AWS Library!");
     System.out.println("\nWe have compiled a list of the words for the book ___insert book here___: ");
@@ -113,7 +125,7 @@ public class Library {
     System.out.println("Here are the top words in the story");
     System.out.println("Word: a : " + Integer.toString(myLib.getWordCount("a")));
     System.out.println("Word: there : " + Integer.toString(myLib.getWordCount("there")));
-    System.out.println("Word: castle : " + Integer.toString(myLib.getWordCount("castle")));
+    System.out.println("Word: Darcy : " + Integer.toString(myLib.getWordCount("Darcy")));
     System.out.println("Word: once : " + Integer.toString(myLib.getWordCount("once")));
     System.out.println("");
     myLib.printList(myLib.wLengthSort());

@@ -14,34 +14,12 @@ public class Library {
   public Library() {
     this.words = new ArrayList<String>();
 
-    //Sample
-    words.add("once");
-    words.add("upon");
-    words.add("a");
-    words.add("time");
-    words.add("there");
-    words.add("was");
-    words.add("a");
-    words.add("girl");
-    words.add("who");
-    words.add("lived");
-    words.add("in");
-    words.add("a");
-    words.add("beautiful");
-    words.add("castle");
-    words.add("one");
-    words.add("day");
-    words.add("the");
-    words.add("castle");
-    words.add("there");
-    words.add("fell");
-    words.add("there");
-    words.add("down");
-
   }
 
   //Sort with Insertion
   public void alphaSort(){
+
+
 
   }
   //Sort with Selection
@@ -66,6 +44,44 @@ public class Library {
 
     return sortList;
   }
+
+  public ArrayList<String> getList() {
+    return words;
+  }
+
+  public ArrayList<String> merge(ArrayList<String> sorted1, ArrayList<String> sorted2) {
+    //combine the two
+    ArrayList<String> finalList = new ArrayList<String>();
+    int index1 = 0;
+    int index2 = 0;
+    for (int i = 0; i < sorted1.size() + sorted2.size(); i++) {
+      if (sorted1.get(index1) <= sorted2.get(index2)) {
+        finalList.add(sorted1.get(index1));
+        index1++;
+      }
+      else {
+        finalList.add(sorted2.get(index2));
+        index2++;
+      }
+    }
+    return finalList;
+  }
+
+  public ArrayList<String> mergeWLengthSort(ArrayList<String> myList) {
+    if (myList.size() <= 1) {
+      return myList;
+    }
+    else {
+      ArrayList<String> list1 = //First half of list
+      ArrayList<String> list2 = //Second half of list
+
+      ArrayList<String> sorted1 = mergeWLengthSort(list1);
+      ArrayList<String> sorted2 = mergeWLengthSort(list2);
+      ArrayList<String> sortedfinal = merge(sorted1, sorted2);
+      return sortedfinal;
+    }
+  }
+
 
   public void printList(ArrayList<String> printL){
     for (int i = 0; i < printL.size(); i++){
@@ -129,6 +145,7 @@ public class Library {
     System.out.println("Word: once : " + Integer.toString(myLib.getWordCount("once")));
     System.out.println("");
     myLib.printList(myLib.wLengthSort());
+    myLib.mergeWLengthSort(myLib.getList());
   }
 
 }

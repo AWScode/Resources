@@ -23,7 +23,7 @@ public class Library {
 
   }
   //Sort with Selection
-  public ArrayList<String> wLengthSort(){
+  public ArrayList<String> wLengthSelectionSort(){
     ArrayList<String> sortList = new ArrayList<String>();
     //Create a temporary list to remove from
     ArrayList<String> tempList = new ArrayList<String>();
@@ -54,14 +54,39 @@ public class Library {
     ArrayList<String> finalList = new ArrayList<String>();
     int index1 = 0;
     int index2 = 0;
+    boolean list1empty = false;
+    boolean list2empty = false;
     for (int i = 0; i < sorted1.size() + sorted2.size(); i++) {
-      if (sorted1.get(index1) <= sorted2.get(index2)) {
-        finalList.add(sorted1.get(index1));
-        index1++;
+      if (!list1empty && !list2empty) {
+        if (sorted1.get(index1).length() <= sorted2.get(index2).length()) {
+          finalList.add(sorted1.get(index1));
+          index1++;
+          if (index1 == sorted1.size()) {
+            list1empty = true;
+          }
+        }
+        else {
+          finalList.add(sorted2.get(index2));
+          index2++;
+          if (index2 == sorted2.size()) {
+            list2empty = true;
+          }
+        }
       }
-      else {
+      else if (list1empty) {
         finalList.add(sorted2.get(index2));
         index2++;
+        if (index2 == sorted2.size()) {
+          list2empty = true;
+        }
+      }
+
+      else if (list2empty) {
+        finalList.add(sorted1.get(index1));
+        index1++;
+        if (index1 == sorted1.size()) {
+          list1empty = true;
+        }
       }
     }
     return finalList;
@@ -72,8 +97,14 @@ public class Library {
       return myList;
     }
     else {
-      ArrayList<String> list1 = //First half of list
-      ArrayList<String> list2 = //Second half of list
+      ArrayList<String> list1 = new ArrayList<String>(); // First half of list
+      ArrayList<String> list2 = new ArrayList<String>(); //Second half of list
+      for (int i = 0; i < myList.size()/2; i++) {
+        list1.add(myList.get(i));
+      }
+      for (int j = myList.size()/2; j < myList.size(); j++) {
+        list2.add(myList.get(j));
+      }
 
       ArrayList<String> sorted1 = mergeWLengthSort(list1);
       ArrayList<String> sorted2 = mergeWLengthSort(list2);
@@ -87,6 +118,7 @@ public class Library {
     for (int i = 0; i < printL.size(); i++){
       System.out.print(printL.get(i) + ", ");
     }
+    System.out.println("");
   }
 
   public int getWordCount(String w){
@@ -138,14 +170,34 @@ public class Library {
     System.out.println("The story: \n ===\n\n");
     myLib.printList(myLib.getWords());
     System.out.println("\n");
+
+    long t1 = System.currentTimeMillis();
+    myLib.printList(myLib.wLengthSelectionSort());
+    long t2 = System.currentTimeMillis();
+    long diffSelection = t2 - t1;
+    /*ArrayList<String> test = new ArrayList<String>();
+    test.add("two");
+    test.add("for");
+    test.add("goookd");
+    test.add("pillow");
+    test.add("flame");
+    test.add("dice");
+    test.add("on");*/
+    long t3 = System.currentTimeMillis();
+    myLib.printList(myLib.mergeWLengthSort(myLib.getWords()));
+    long t4 = System.currentTimeMillis();
+    long diffMerge = t4 - t3;
+
+    System.out.println(diffSelection);
+    System.out.println(diffMerge);
     System.out.println("Here are the top words in the story");
     System.out.println("Word: a : " + Integer.toString(myLib.getWordCount("a")));
     System.out.println("Word: there : " + Integer.toString(myLib.getWordCount("there")));
-    System.out.println("Word: Darcy : " + Integer.toString(myLib.getWordCount("Darcy")));
-    System.out.println("Word: once : " + Integer.toString(myLib.getWordCount("once")));
+    System.out.println("Word: human : " + Integer.toString(myLib.getWordCount("human")));
+    System.out.println("Word: heart : " + Integer.toString(myLib.getWordCount("heart")));
     System.out.println("");
-    myLib.printList(myLib.wLengthSort());
-    myLib.mergeWLengthSort(myLib.getList());
+
+
   }
 
 }

@@ -3,29 +3,69 @@ This java program displays an example frame
 using the java awt library */
 
 import java.awt.*;
+import java.awt.event.*;
 
 public class MainFrame extends Frame{
 
+  private Button b;
+  private TextField tf;
+  private Label name;
+  private TextArea ta;
+  private Button b2;
+
   public MainFrame() {
+
+    addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent windowEvent){
+        System.exit(0);
+      }
+    });
+
+    b = new Button("Click me!");
+    b.setBounds(90,100,100,30);
+    add(b);
+
+    tf = new TextField("Welcome to the Restaurant!");
+    tf.setBounds(50, 50, 200, 30);
+    add(tf);
+    tf.setText("whatebvehfhaergjkbgareilhe");
+
+    b.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e){
+        tf.setText("You clicked the button!");
+      }
+    });
+
+    Scrollbar sc = new Scrollbar();
+    sc.setBounds(400,0,30,300);
+    add(sc);
+    name = new Label("Your name:");
+    name.setBounds(70, 250, 80, 30);
+    add(name);
+    ta = new TextArea();
+    ta.setBounds(150,250,200,40);
+    add(ta);
+    //ta.addTextListener(new MyTextListener());
+    b2 = new Button("Submit");
+    b2.setBounds(150, 200, 100, 30);
+    add(b2);
+    b2.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e2){
+        tf.setText("Your name is: " + ta.getText());
+      }
+    });
 
     setSize(400,300);
     setLayout(null);
     setVisible(true);
   }
 
-  public void addButton() {
-    Button b = new Button("Click me!");
-    b.setBounds(90,100,100,30);
-    this.add(b);
+  class MyTextListener implements TextListener {
+    public void textValueChanged(TextEvent e) {
+      tf.setText("");
+    }
   }
-
-  public void addLabel() {
-    Label lab = new Label("My first label");
-    lab.setBounds(90, 50, 120, 30);
-    this.add(lab);
-  }
-
-  public void addCheckbox() {
+  /*public void addCheckbox() {
     Checkbox check1 = new Checkbox("Yes");
     check1.setBounds(220, 50, 80, 30);
     this.add(check1);
@@ -55,15 +95,8 @@ public class MainFrame extends Frame{
     l.add("e");
     this.add(l);
   }
-
+*/
   public static void main(String[] args) {
     MainFrame m = new MainFrame();
-    m.addButton();
-    m.addLabel();
-    m.addCheckbox();
-    m.addChoice();
-    m.addList();
-
   }
-
 }
